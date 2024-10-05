@@ -19,6 +19,10 @@ export default function PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
+        if (!userData) {
+            console.error("User data is not available.");
+            return; // Exit if user data is not loaded
+        }
 
         data.slug = slugTransform(data.title);
         

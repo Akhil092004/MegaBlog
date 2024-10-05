@@ -15,6 +15,7 @@ function Login() {
     const login = async(data) => {
         setError("")
         try {
+
             const session = await authService.login(data)
             if (session) {
                 const userData = await authService.getCurrentUser()
@@ -28,7 +29,7 @@ function Login() {
 
   return (
     <div
-    className='flex items-center justify-center w-full'
+    className=' py-4 flex items-center justify-center w-full z-40'
     >
         <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
         <div className="mb-2 flex justify-center">
