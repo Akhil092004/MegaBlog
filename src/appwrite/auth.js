@@ -15,19 +15,19 @@ export class AuthService {
             
     }
 
-    async createAccount({email, password, name}) {
+    async createAccount({ email, password, name }) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                // call another method
-                return this.login({email, password});
-            } else {
-               return  userAccount;
+                // Create a session immediately after creating the account
+                return await this.login({ email, password });
             }
+            return userAccount;
         } catch (error) {
             throw error;
         }
     }
+    
 
     async login({email, password}) {
         try {
@@ -39,13 +39,18 @@ export class AuthService {
 
     async getCurrentUser() {
         try {
-            return await this.account.get();
+            const user = await this.account.get();
+            return user;
         } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error);
+            if (error.code === 401) { // Unauthorized error
+                console.log("User is not logged in");
+            } else {
+                console.log("Appwrite serive :: getCurrentUser :: error", error);
+            }
+            return null;
         }
-
-        return null;
     }
+    
 
     async logout() {
 

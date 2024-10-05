@@ -19,6 +19,9 @@ export default function PostForm({ post }) {
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
+
+        data.slug = slugTransform(data.title);
+        
         if (post) {
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
@@ -28,11 +31,14 @@ export default function PostForm({ post }) {
 
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined,
+                featuredImage: file ? file.$id : post.featuredImage,
             });
 
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`);
+            }
+            else{
+                navigate("/")
             }
         } else {
             const file = await appwriteService.uploadFile(data.image[0]);
@@ -45,10 +51,12 @@ export default function PostForm({ post }) {
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
+                else{
+                    navigate("/")
+                }
             }
         }
     };
-
     const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")
             return value
@@ -72,6 +80,7 @@ export default function PostForm({ post }) {
 
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+            
             <div className="w-2/3 px-2">
                 <Input
                     label="Title :"
