@@ -35,7 +35,7 @@ export default function Post() {
 
     return post ? (
         <div className="py-8 min-h-[60vh]">
-            <Container>
+            <Container className="grid grid-cols-2 gap-x-6">
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
                         src={appwriteService.getFilePreview(post.featuredImage)}
@@ -56,12 +56,15 @@ export default function Post() {
                         </div>
                     )}
                 </div>
-                <div className="w-full mb-6">
-                    <h1 className="text-2xl font-bold">{post.title}</h1>
-                </div>
-                <div className="browser-css">
-                    {parse(post.content)}
+                <div className="flex flex-col items-center gap-y-9">
+                    <div className="w-full mb-6 flex justify-between align-baseline">
+                        <h1 className="text-2xl font-bold">{post.title}</h1>
+                        <h1 className="text-md font-bold">{`(Post Made By - ${post.userName})`}</h1>
                     </div>
+                    <div className="browser-css">
+                        {parse(post.content)}
+                    </div>
+                </div>
             </Container>
         </div>
     ) : null;

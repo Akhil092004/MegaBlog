@@ -2,7 +2,7 @@ import React from 'react'
 import appwriteService from "../appwrite/config"
 import {Link} from 'react-router-dom'
 
-function PostCard({$id, title, featuredImage}) {
+function PostCard({$id, title, featuredImage,userName}) {
     
   return (
     <Link to={`/post/${$id}`}>
@@ -15,6 +15,9 @@ function PostCard({$id, title, featuredImage}) {
             <h2
             className='text-xl font-bold'
             >{title}</h2>
+            <h2
+            className='text-sm font-sans'
+            >By - {userName}</h2>
         </div>
     </Link>
   )
