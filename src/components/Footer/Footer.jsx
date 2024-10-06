@@ -6,7 +6,7 @@ import Logo from '../Logo';
 
 function Footer() {
   return (
-    <section className="relative bottom-0 w-full overflow-hidden py-6 bg-[#B17457] border-t-black">
+    <section className="relative bottom-0 w-full overflow-hidden py-6 bg-[#415a77] border-t-black">
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         <div className="-m-6 flex flex-wrap">
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">

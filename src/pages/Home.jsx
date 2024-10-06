@@ -15,7 +15,7 @@ function Home() {
     const stat = useSelector(state => state.auth.status);
     if(stat === false || posts.length === 0){
         return (
-            <div className="w-full min-h-[60vh] h-full py-8 mt-4 text-center">
+            <div className="w-full min-h-[65vh] h-full py-8 mt-4 text-center">
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
@@ -31,7 +31,7 @@ function Home() {
         )
     }
     return (
-        <div className='w-full min-h-[60vh] py-8'>
+        <div className='w-full min-h-[65vh] py-8'>
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (
