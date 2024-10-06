@@ -3,7 +3,7 @@ import { Signup as SignupComponent } from '../components'
 
 function Signup() {
   return (
-    <div className='py-8 min-h-[60vh]'>
+    <div className='py-8 min-h-[65vh]'>
         <SignupComponent />
     </div>
   )
