@@ -13,6 +13,7 @@ function Home() {
     }, [])
 
     const stat = useSelector(state => state.auth.status);
+    const userData = useSelector(state => state.auth.userData);
     if(stat === false || posts.length === 0){
         return (
             <div className="w-full min-h-[65vh] h-full py-8 mt-4 text-center">
@@ -35,9 +36,11 @@ function Home() {
             <Container>
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            <PostCard {...post} />
-                        </div>
+                         userData && post.userId === userData.$id && (
+                            <div key={post.$id} className='p-2 w-1/4'>
+                                <PostCard {...post} />
+                            </div>
+                        )
                     ))}
                 </div>
             </Container>
