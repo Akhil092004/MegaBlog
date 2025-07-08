@@ -1,5 +1,5 @@
 import conf from '../conf/conf.js';
-import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { Client, ID, Databases, Storage, Query,Permission,Role } from "appwrite";
 
 export class Service{
     client = new Client();
@@ -14,8 +14,10 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-    async createPost({title, slug, content, featuredImage, status, userId,userName}){
-        console.log(userName)
+    async createPost(payload){
+        const {title, slug, content, featuredImage, status, userId,userName} = payload;
+        // console.log(payload)
+        // console.log(userName,userId)
         try {
             return await this.databases.createDocument(
                 conf.appwriteDatabaseId,
@@ -105,7 +107,10 @@ export class Service{
             return await this.bucket.createFile(
                 conf.appwriteBucketId,
                 ID.unique(),
-                file
+                file,
+                [
+                    Permission.read(Role.any())
+                ]
             )
         } catch (error) {
             console.log("Appwrite serive :: uploadFile :: error", error);
@@ -128,7 +133,9 @@ export class Service{
 
     getFilePreview(fileId) {
         try {
-            return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+            const preview = this.bucket.getFileView(conf.appwriteBucketId, fileId);
+            console.log("Generated preview URL:", preview.href);
+            return preview.href;
         } catch (error) {
             console.log("Appwrite service :: getFilePreview :: error", error);
             return null;

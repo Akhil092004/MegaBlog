@@ -21,7 +21,7 @@ export default function PostForm({ post }) {
     const submit = async (data) => {
         if (!userData) {
             console.error("User data is not available.");
-            return; // Exit if user data is not loaded
+            return;
         }
 
         data.slug = slugTransform(data.title);
@@ -50,7 +50,6 @@ export default function PostForm({ post }) {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
-                console.log(userData.name);
                 const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id, userName:userData.name });
 
                 if (dbPost) {
